@@ -7,7 +7,7 @@ replicaCount: 1
 restartPolicy: Always
 
 image:
-  repository: smcavallo/argocd-ecr-updater # CHANGE_ME - there is currently no published image
+  repository: mike7515/argocd-ecr-updater # CHANGE_ME - there is currently no published image
   tag: latest
   pullPolicy: IfNotPresent
   pullSecret: ""
