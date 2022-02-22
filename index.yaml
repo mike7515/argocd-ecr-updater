@@ -3,20 +3,20 @@ entries:
   argocd-ecr-updater:
   - apiVersion: v2
     appVersion: 2.0.0
-    created: "2022-02-22T10:13:55.640086+01:00"
+    created: "2022-02-22T10:15:53.157844+01:00"
     description: ArgoCD ECR Repository Token Refresher
-    digest: cb0aec0a97abfa83484301051fc9ba485e0ffaa5ec86f04d381e8e3a18002d5e
+    digest: ea47761c495c02237e0bc545220801ef5d3332ef216b03fc96b8307fe857be37
     name: argocd-ecr-updater
     urls:
     - charts/argocd-ecr-updater-2.0.0.tgz
     version: 2.0.0
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2022-02-22T10:13:55.639663+01:00"
+    created: "2022-02-22T10:15:53.157311+01:00"
     description: ArgoCD ECR Repository Token Refresher
     digest: 7067b7e43e6d964e8df28f731cc5319f0f87ac6acb792fde550262bc1ce71ac9
     name: argocd-ecr-updater
     urls:
     - charts/argocd-ecr-updater-1.0.0.tgz
     version: 1.0.0
-generated: "2022-02-22T10:13:55.639139+01:00"
+generated: "2022-02-22T10:15:53.156775+01:00"
