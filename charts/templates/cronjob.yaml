@@ -1,0 +1,39 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  annotations:
+  name: {{ include "argocd-ecr-updater.cronjobName" . }}
+spec:
+  concurrencyPolicy: Allow
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: {{ include "argocd-ecr-updater.serviceAccountName" . }}
+          containers:
+          - command:
+            - /bin/sh
+            - -c
+            - |-
+              TOKEN=`aws ecr get-login --region {{ .Values.cronjob.awsRegion }} --registry-ids {{ .Values.cronjob.awsAccount }} | cut -d' ' -f6`
+              echo "ENV variables setup done."
+              kubectl patch secret  {{ .Values.cronjob.argocdRepoSecretName }} --patch='{"data":{"password":"TOKEN"}}' -n {{ .Values.cronjob.argoNamespace }}
+              echo "All done."
+            image: odaniait/aws-kubectl:latest
+            imagePullPolicy: IfNotPresent
+            name: ecr-cred-helper
+            resources: {}
+            securityContext:
+              capabilities: {}
+            terminationMessagePath: /dev/termination-log
+            terminationMessagePolicy: File
+          dnsPolicy: Default
+          hostNetwork: true
+          restartPolicy: Never
+          schedulerName: default-scheduler
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+  schedule: {{ .Values.cronjob.cronExpression }}
+  successfulJobsHistoryLimit: 3
+  suspend: false

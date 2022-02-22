@@ -31,3 +31,16 @@ Create chart name and version as used by the chart label.
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/*
+Create the name of the cron job to use
+*/}}
+{{- define "argocd-ecr-updater.cronjobName" -}}
+    {{ default (include "argocd-ecr-updater.fullname" .) .Values.cronjob.name }}
+{{- end -}}
+
+{{/*
+Create the name of the service account to use
+*/}}
+{{- define "argocd-ecr-updater.serviceAccountName" -}}
+    {{ default (include "argocd-ecr-updater.fullname" .) .Values.serviceAccount.name }}
+{{- end -}}
