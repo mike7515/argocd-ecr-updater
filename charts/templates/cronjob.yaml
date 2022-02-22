@@ -34,6 +34,6 @@ spec:
           schedulerName: default-scheduler
           securityContext: {}
           terminationGracePeriodSeconds: 30
-  schedule: {{ .Values.cronjob.cronExpression }}
+  schedule: {{ .Values.cronjob.cronExpression | quote }}
   successfulJobsHistoryLimit: 3
   suspend: false
