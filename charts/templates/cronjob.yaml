@@ -16,9 +16,10 @@ spec:
             - /bin/sh
             - -c
             - |-
-              TOKEN=`aws ecr get-login --region {{ .Values.cronjob.awsRegion }} --registry-ids {{ .Values.cronjob.awsAccount }} | cut -d' ' -f6`
+              AWS_TOKEN=`aws ecr get-login --region {{ .Values.cronjob.awsRegion }} --registry-ids {{ .Values.cronjob.awsAccount }} | cut -d' ' -f6`
               echo "ENV variables setup done."
-              kubectl patch secret {{ .Values.cronjob.argocdRepoSecretName }} --patch='{"data":{"password": ${TOKEN}}}' -n {{ .Values.cronjob.argoNamespace }}
+              
+              kubectl patch secret {{ .Values.cronjob.argocdRepoSecretName }} -p '{"data":{"password":"'`printf $AWS_TOKEN | base64 | tr -d '\n'`'"}}' -n {{ .Values.cronjob.argoNamespace }}
               echo "All done."
             image: odaniait/aws-kubectl:latest
             imagePullPolicy: IfNotPresent
