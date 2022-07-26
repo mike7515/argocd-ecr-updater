@@ -11,9 +11,9 @@ spec:
       template:
         metadata:
           labels: 
-            {{- with .Values.podLabels }}
-            {{ toYaml . }}
-            {{- end }}
+{{- with .Values.podLabels }}
+{{ toYaml . | indent 12}}
+{{- end }}
         spec:
           serviceAccountName: {{ include "argocd-ecr-updater.serviceAccountName" . }}
           containers:
