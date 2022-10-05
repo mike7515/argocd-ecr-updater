@@ -1,4 +1,4 @@
-# ArgoCD-ECR-Updater
+# ArgoCD-ECR-Updater [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/argocd-ecr-updater)](https://artifacthub.io/packages/search?repo=argocd-ecr-updater)
 
 ECR currently requires token authentication.
 
