@@ -8,11 +8,14 @@ restartPolicy: Always
 
 cronjob:
   name: argocd-ecr-updater-cronjob
-  argoNamespace: default
+  argoNamespaces:
+    - default
   awsRegion: default
   awsAccount: default
   argocdRepoSecretName: default
   cronExpression: 0 0/6 * * *
+
+createClusterRoles: true
 
 serviceAccount:
   create: true
