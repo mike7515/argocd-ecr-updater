@@ -21,10 +21,11 @@ spec:
             - /bin/sh
             - -c
             - |-
+              ARGO_NAMESPACES={{.Values.cronjob.argoNamespaces | join(" ")}}
               AWS_TOKEN=`aws ecr get-login --region {{ .Values.cronjob.awsRegion }} --registry-ids {{ .Values.cronjob.awsAccount }} | cut -d' ' -f6`
               echo "ENV variables setup done."
               
-              for namespace in {{ .Values.cronjob.argoNamespaces }}
+              for namespace in $ARGO_NAMESPACES
               do
                 kubectl patch secret {{ .Values.cronjob.argocdRepoSecretName }} -p '{"data":{"password":"'`echo $AWS_TOKEN | base64 | tr -d '\n'`'"}}' -n $namespace
               done
