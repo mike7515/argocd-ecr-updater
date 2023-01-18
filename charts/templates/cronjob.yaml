@@ -21,7 +21,7 @@ spec:
             - /bin/sh
             - -c
             - |-
-              ARGO_NAMESPACES={{.Values.cronjob.argoNamespaces | join(" ")}}
+              ARGO_NAMESPACES={{join " " .Values.cronjob.argoNamespaces}}
               AWS_TOKEN=`aws ecr get-login --region {{ .Values.cronjob.awsRegion }} --registry-ids {{ .Values.cronjob.awsAccount }} | cut -d' ' -f6`
               echo "ENV variables setup done."
               
