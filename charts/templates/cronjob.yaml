@@ -27,7 +27,8 @@ spec:
               
               for namespace in $ARGO_NAMESPACES
               do
-                kubectl patch secret {{ .Values.cronjob.argocdRepoSecretName }} -p '{"data":{"password":"'`echo $AWS_TOKEN | base64 | tr -d '\n'`'"}}' -n $namespace
+                  kubectl get secrets -n $namespace -l argocd.argoproj.io/secret-type=repository -o jsonpath='{range .items[*]}{.metadata.name}{"\n"}{end}' | grep "{{.Values.cronjob.secretRegex}}" | \
+                xargs -I {} kubectl patch secret {} -n $namespace -p '{"data":{"password":"'`echo $AWS_TOKEN | base64 | tr -d '\n'`'"}}'
               done
 
               echo "All done."
