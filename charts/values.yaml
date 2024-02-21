@@ -12,7 +12,7 @@ cronjob:
     - default
   awsRegion: default
   awsAccount: default
-  argocdRepoSecretName: default
+  secretRegex: ^default
   cronExpression: 0 0/6 * * *
 
 createClusterRoles: true
